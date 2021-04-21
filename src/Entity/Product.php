@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -18,42 +19,60 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="no puede estar en blanco")
+     * @Assert\Unique(message="el codigo ya existe")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 10,
+     *      minMessage = "debe tener minimo 4 caracteres",
+     *      maxMessage = "debe tener maximo 10 caracteres")
+     *
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="no puede estar en blanco")
+     * @Assert\Unique(message="el nombre ya existe")
+     *  @Assert\Length(
+     *      min = 4,
+     *      minMessage = "debe tener minimo 4 caracteres")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="no puede estar en blanco")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="no puede estar en blanco")
      */
     private $brand;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="no puede estar en blanco")
+     * @Assert\Positive()
      */
     private $price;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Assert\NotBlank()
      *
      */
     private $category;

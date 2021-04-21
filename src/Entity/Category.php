@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -21,11 +22,13 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="no puede estar en blanco")
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\NotBlank(message="no puede estar en blanco")
      */
     private $active;
 
@@ -41,6 +44,7 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     * @Assert\NotBlank(message="no puede estar en blanco")
      */
     private $products;
 
