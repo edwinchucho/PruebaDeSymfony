@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.4.xsd" frameworkId="com.symfony" name="Symfony_21/4/21 14:26" invoke="72d34109-ab9c-4533-a182-60cd6768b11a &quot;C:/symfony trabajos/PruebaSymfony/bin/console&quot;" alias="symfony" enabled="true" version="2" />
+
