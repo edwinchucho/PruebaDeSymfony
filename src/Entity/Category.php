@@ -114,7 +114,7 @@ class Category
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategoria($this);
+            $product->setCategory($this);
         }
 
         return $this;
