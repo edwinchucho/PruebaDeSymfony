@@ -18,9 +18,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/product", name="app_productos")
      */
-    public function listar(ProductRepository $repository,Request $request)
+    public function listar(ProductRepository $repository,Request $request,PaginatorInterface $paginator)
     {
-        $products = $repository->findAll();
+        $query = $repository->findAll();
+        $products = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1), 5);
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
