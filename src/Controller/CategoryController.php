@@ -25,7 +25,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/new", name="new_category")
+     * @Route("/category/new", name="category_new")
      */
     public function create(Request $request,EntityManagerInterface $emi){
         $category = new Category();
@@ -37,7 +37,7 @@ class CategoryController extends AbstractController
             $emi->persist($category);
             $emi->flush();
 
-            return $this->redirectToRoute('new_category');
+            return $this->redirectToRoute('category_new');
 
         }
 

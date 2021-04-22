@@ -21,7 +21,6 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="no puede estar en blanco")
-     * @Assert\Unique(message="el codigo ya existe")
      * @Assert\Length(
      *      min = 4,
      *      max = 10,
@@ -34,7 +33,6 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="no puede estar en blanco")
-     * @Assert\Unique(message="el nombre ya existe")
      *  @Assert\Length(
      *      min = 4,
      *      minMessage = "debe tener minimo 4 caracteres")
@@ -61,12 +59,12 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 

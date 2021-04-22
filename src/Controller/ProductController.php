@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="app_productos")
+     * @Route("/product", name="app_productos")
      */
     public function listar(ProductRepository $repository,Request $request)
     {
@@ -42,7 +42,7 @@ class ProductController extends AbstractController
             $emi->persist($product);
             $emi->flush();
 
-            return $this->redirectToRoute('app_productos');
+            return $this->redirectToRoute('product_new');
         }
 
         return $this->render('product/create.html.twig', [
