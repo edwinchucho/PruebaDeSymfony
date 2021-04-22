@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -91,5 +93,19 @@ class ProductController extends AbstractController
         return new Response(null, 204);
     }
 
+
+    /**
+     * @Route("/sendEmail",)
+     */
+    public function email(MailerInterface $mailer)
+    {
+        $email = (new Email())
+            ->from('edwinchucho@hotmail.com')
+            ->to('newUser@hotmail.com')
+            ->subject('envio de email pruebaSymfony')
+            ->text("use el DSN con mailtrap colocar la ruta /sendEmail y envia automaticamente ");
+        $mailer->send($email);
+        return $this->redirectToRoute('app_productos');
+    }
 
 }
