@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Form\CategoryType;
+use App\Form\ProductType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,5 +47,39 @@ class CategoryController extends AbstractController
         return $this->render('category/create.html.twig',[
             'form' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/category/edit/{id}", name="category_edit", methods={"GET","POST"})
+     */
+    public function edit($id,Request $request, EntityManagerInterface $emi,CategoryRepository $repository): Response
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $Category = $repository->find($id);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $Category->setName($form->get('name')->getData());
+            $Category->setActive($form->get('active')->getData());
+
+            $emi->flush();
+
+            return $this->redirectToRoute('app_category');
+        }
+        return $this->render('category/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/category/delete/{id}", name="category_delete", methods={"DELETE"})
+     */
+    public function delete($id,EntityManagerInterface $em,ProductRepository $repository)
+    {
+        $query = $repository->find($id);
+        $em->remove($query);
+        $em->flush();
+        return new Response(null, 204);
     }
 }

@@ -6,7 +6,7 @@
 
             <a class="btn btn-primary" href="{{ path('product_new') }}">NEW</a>
 
-            <table class="table table-striped ">
+            <table class="table table-striped js-table ">
                 <thead>
                 <tr>
                     <th>id</th>
@@ -15,8 +15,8 @@
                     <th>description</th>
                     <th>brand</th>
                     <th>price</th>
-                    <th>Delete</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +40,12 @@
                         <td>
                             {{ product.price }}
                         </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('product_edit', {id: product.id}) }}">edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {id: product.id}) }}">Delete</a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr>
@@ -47,10 +53,15 @@
                             No product found
                         </td>
                     </tr>
+
                 {% endfor %}
                 </tbody>
             </table>
             {{ knp_pagination_render(products) }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/delete.js') }}"></script>
 {% endblock %}
