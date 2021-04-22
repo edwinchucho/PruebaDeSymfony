@@ -13,7 +13,6 @@
                     <th>name</th>
                     <th>active</th>
                     <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,9 +29,6 @@
                         </td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-warning js-delete"  data-url="{{ path('category_delete', {'id': category.id}) }}">Delete</a>
                         </td>
                     </tr>
                 {% else %}

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,7 +24,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="no puede estar en blanco")
+     * @Assert\NotBlank(message="blanco")
      * @Assert\Length(
      *      min = 4,
      *      max = 10,
@@ -59,14 +63,18 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTimeInterface
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTimeInterface
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
@@ -140,28 +148,47 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    /**
+     * Sets createdAt.
+     *
+     * @param  DateTimeInterface $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    /**
+     * Returns createdAt.
+     *
+     * @return DateTimeInterface
+     */
+    public function getCreatedAt()
     {
-        return $this->updatedAt;
+        return $this->createdAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    /**
+     * Sets updatedAt.
+     *
+     * @return void
+     */
+    private function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        throw new InvalidArgumentException("no se puede colocar");
+    }
 
-        return $this;
+    /**
+     * Returns updatedAt.
+     *
+     * @return DateTimeInterface
+     */
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 
     public function getCategory(): ?Category

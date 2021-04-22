@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Product;
 use App\Form\CategoryType;
-use App\Form\ProductType;
 use App\Repository\CategoryRepository;
-use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,14 +69,4 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/category/delete/{id}", name="category_delete", methods={"DELETE"})
-     */
-    public function delete($id,EntityManagerInterface $em,ProductRepository $repository)
-    {
-        $query = $repository->find($id);
-        $em->remove($query);
-        $em->flush();
-        return new Response(null, 204);
-    }
 }

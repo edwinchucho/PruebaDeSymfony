@@ -1,14 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block title %}nuevo{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/centrar.css')}}">
+{% endblock %}
 
 {% block body %}
+<div class="form-signin">
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    <br>
     <button class="btn btn-success">{{ button_label|default('guardar') }}</button>
     {{ form_end(form) }}
     <br>
     <br>
     <a class="btn btn-primary" href="{{ path('app_productos') }}">Products</a>
+</div>
 {% endblock %}
 
 

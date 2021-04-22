@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product", name="app_productos")
+     * @Route("/", name="app_productos")
      */
     public function show(ProductRepository $repository,Request $request,PaginatorInterface $paginator)
     {

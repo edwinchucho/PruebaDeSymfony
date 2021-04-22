@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Crear Categoria{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/centrar.css')}}">
+{% endblock %}
 {% block body %}
+<div class="form-signin">
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('guardar') }}</button>
@@ -9,6 +13,7 @@
     <br>
     <br>
     <a class="btn btn-primary" href="{{ path('app_category') }}">categories</a>
+</div>
 {% endblock %}
 
 
