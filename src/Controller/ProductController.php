@@ -8,7 +8,6 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -22,7 +21,9 @@ class ProductController extends AbstractController
      */
     public function show(ProductRepository $repository,Request $request,PaginatorInterface $paginator)
     {
-        $query = $repository->findAll();
+        $p = $request->query->get('p');
+        $query = $repository->getSearchQuery($p);
+
         $products = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1), 5);
@@ -103,7 +104,7 @@ class ProductController extends AbstractController
             ->from('edwinchucho@hotmail.com')
             ->to('newUser@hotmail.com')
             ->subject('envio de email pruebaSymfony')
-            ->text("use el DSN con mailtrap colocar la ruta /sendEmail y envia automaticamente ");
+            ->text("use el DSN con mailtrap,colocar la ruta /sendEmail y envia automaticamente ");
         $mailer->send($email);
         return $this->redirectToRoute('app_productos');
     }

@@ -1,8 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block title %}product{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/centrar.css')}}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            <form>
+                <div class="input-group form-signin">
+                    <input type="text"
+                           name="p"
+                           class="form-control"
+                           value="{{ app.request.query.get('p') }}"
+                           placeholder="filtrar..."
+                    >
+                    <div class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-outline-secondary">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
 
             <a class="btn btn-primary" href="{{ path('product_new') }}">NEW</a>
 
@@ -41,11 +61,40 @@
                             {{ product.price }}
                         </td>
                         <td>
-                            <a class="btn btn-primary" href="{{ path('product_edit', {id: product.id}) }}">edit</a>
+                            <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                         </td>
                         <td>
-                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {id: product.id}) }}">Delete</a>
+                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                                Delete
+                            </button>
+                        </td>
+                        <td>
+                            <!-- Modal -->
+                            <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">borrar Producto</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            está seguro de que desea eliminar el producto
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- termina Modal -->
+                        </td>
+
                     </tr>
                 {% else %}
                     <tr>
