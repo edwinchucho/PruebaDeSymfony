@@ -19,7 +19,8 @@ class CategoryController extends AbstractController
      */
     public function show(CategoryRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $query = $repository->findAll();
+
+        $query = $repository->getQuery();
 
         $categories = $paginator->paginate(
             $query,

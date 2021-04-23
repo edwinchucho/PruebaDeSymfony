@@ -33,7 +33,10 @@ class Product
      *      minMessage = "debe tener minimo 4 caracteres",
      *      maxMessage = "debe tener maximo 10 caracteres")
      * @UniqueCode()
-     * @Assert\Regex("/^\s+\W/")
+     * @Assert\Regex(
+     *     pattern="/\w/",
+     *     match=true,
+     *     message="no puede contener caracteres especiales")
      */
     private $code;
 

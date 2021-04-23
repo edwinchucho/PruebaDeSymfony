@@ -1,43 +1,46 @@
 {% extends 'base.html.twig' %}
-{% block title %}category{% endblock %}
+{% block title %}categories{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/centrar.css')}}">
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            <h1>Categorias</h1>
+            <!-- conteo de entradas-->
+            <div class="count">
+                        <span class="label label-primary">
+                            Entradas en total: {{ categories.getTotalItemCount }}
+                        </span>
+            </div>
+            <br/>
 
-            <a class="btn btn-primary" href="{{ path('app_productos') }}">Products</a>
+            <a class="btn btn-primary" href="{{ path('app_productos') }}">Productos</a>
             <br>
             <br>
-            <a class="btn btn-primary" href="{{ path('category_new') }}">NEW</a>
+            <a class="btn btn-primary" href="{{ path('product_new') }}">nuevo</a>
 
             <table class="table table-striped js-table ">
                 <thead>
                 <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>active</th>
-                    <th>Edit</th>
+                    <!-- sorting -->
+                    <th>{{ knp_pagination_sortable(categories, 'ID', 'c.id') }}</th>
+                    <th{% if categories.isSorted('c.name') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(categories, 'NAME', 'c.name') }}
+                    </th>
+                    <th>ACTIVE</th>
+                    <th>EDIT</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for category in categories %}
                     <tr>
-                        <td>
-                            {{ category.id }}
-                        </td>
-                        <td>
-                            {{ category.name }}
-                        </td>
-                        <td>
-                            {{ category.active }}
-                        </td>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.active }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            No category found
                         </td>
                     </tr>
                 {% endfor %}
@@ -46,9 +49,5 @@
             {{ knp_pagination_render(categories) }}
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/delete.js') }}"></script>
 {% endblock %}
 

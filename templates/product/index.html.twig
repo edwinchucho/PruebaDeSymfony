@@ -7,6 +7,7 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+            <!-- filtrar -->
             <form>
                 <div class="input-group form-signin">
                     <input type="text"
@@ -23,46 +24,54 @@
                     </div>
                 </div>
             </form>
+            <!-- termina filtrado-->
+            <h1>Productos</h1>
+            <!-- conteo de entradas-->
+            <div class="count">
+                        <span class="label label-primary">
+                            Entradas en total: {{ products.getTotalItemCount }}
+                        </span>
+            </div>
+            <br/>
 
-            <a class="btn btn-primary" href="{{ path('app_category') }}">categories</a>
+            <a class="btn btn-primary" href="{{ path('app_category') }}">categorias</a>
             <br>
             <br>
-            <a class="btn btn-primary" href="{{ path('product_new') }}">NEW</a>
+            <a class="btn btn-primary" href="{{ path('product_new') }}">nuevo</a>
 
             <table class="table table-striped js-table ">
                 <thead>
-                <tr>
-                    <th>id</th>
-                    <th>code</th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th>brand</th>
-                    <th>price</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
+                    <tr>
+                        <!-- sorting -->
+                        <th>{{ knp_pagination_sortable(products, 'ID', 'p.id') }}</th>
+                        <th{% if products.isSorted('p.code') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(products, 'CODE', 'p.code') }}
+                        </th>
+                        <th{% if products.isSorted('p.name') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(products, 'NAME', 'p.name') }}
+                        </th>
+                        <th{% if products.isSorted('p.description') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(products, 'DESCRIPTION', 'p.description') }}
+                        </th>
+                        <th{% if products.isSorted('p.brand') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(products, 'BRAND', 'p.brand') }}
+                        </th>
+                        <th{% if products.isSorted('p.price') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(products, 'PRICE', 'p.price') }}
+                        </th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
                 </thead>
                 <tbody>
                 {% for product in products %}
                     <tr>
-                        <td>
-                            {{ product.id }}
-                        </td>
-                        <td>
-                            {{ product.code }}
-                        </td>
-                        <td>
-                            {{ product.name }}
-                        </td>
-                        <td>
-                            {{ product.description }}
-                        </td>
-                        <td>
-                            {{ product.brand }}
-                        </td>
-                        <td>
-                            {{ product.price }}
-                        </td>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.brand }}</td>
+                        <td>{{ product.price }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                         </td>
@@ -72,10 +81,7 @@
                             </button>
                         </td>
                     </tr>
-
-
                 {% endfor %}
-
                 </tbody>
             </table>
             {{ knp_pagination_render(products) }}
