@@ -29,6 +29,7 @@ class Category
      *  @Assert\Length(
      *      min = 4,
      *      minMessage = "debe tener minimo 4 caracteres")
+     *
      */
     private $name;
 
