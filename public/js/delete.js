@@ -1,15 +1,9 @@
 $(document).ready(function() {
 	var $table =$('.js-table');
-	$table.find('.js-delete').on('click', function (e) {
+	$table.find('.js-deleteItem').on('click', function (e) {
 		e.preventDefault();
 		var deleteUrl = $(this).data('url');
-		var $row = $(this).closest('tr');
-		$.ajax({
-			method: 'DELETE',
-			url: deleteUrl,
-			success:function () {
-				$row.fadeOut();
-			}
-		})
+		$('#confirmdelete').attr('href',deleteUrl);
+
 	});
 });

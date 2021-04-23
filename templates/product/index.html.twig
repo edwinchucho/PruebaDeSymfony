@@ -24,6 +24,9 @@
                 </div>
             </form>
 
+            <a class="btn btn-primary" href="{{ path('app_category') }}">categories</a>
+            <br>
+            <br>
             <a class="btn btn-primary" href="{{ path('product_new') }}">NEW</a>
 
             <table class="table table-striped js-table ">
@@ -67,48 +70,41 @@
                             <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button type="button" class="btn btn-danger js-deleteItem" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ path('product_delete', {'id': product.id}) }}>
                                 Delete
                             </button>
                         </td>
-                        <td>
-                            <!-- Modal -->
-                            <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">borrar Producto</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            está seguro de que desea eliminar el producto
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- termina Modal -->
-                        </td>
+                    </tr>
 
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            No product found
-                        </td>
-                    </tr>
 
                 {% endfor %}
+
                 </tbody>
             </table>
             {{ knp_pagination_render(products) }}
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">borrar Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    está seguro de que desea eliminar el producto
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a class="btn btn-warning " id="confirmdelete">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- termina Modal -->
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

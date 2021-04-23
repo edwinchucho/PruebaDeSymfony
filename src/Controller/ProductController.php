@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
+
     /**
      * @Route("/", name="app_productos")
      */
@@ -61,22 +62,23 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/edit/{id}", name="product_edit", methods={"GET","POST"})
      */
-    public function edit($id,Request $request, EntityManagerInterface $emi,ProductRepository $repository): Response
+    public function edit(Product $product,Request $request,ProductRepository $repository): Response
     {
-        $product = new Product();
+
         $form = $this->createForm(ProductType::class, $product);
-        $Product = $repository->find($id);
+        //$Product = $repository->find($id);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $em = $this->getDoctrine()->getManager();
+/*
             $Product->setCode($form->get('code')->getData());
             $Product->setName($form->get('name')->getData());
             $Product->setDescription($form->get('description')->getData());
             $Product->setBrand($form->get('brand')->getData());
             $Product->setPrice($form->get('price')->getData());
-
-            $emi->flush();
+*/
+            $em->flush();
 
             return $this->redirectToRoute('app_productos');
         }
