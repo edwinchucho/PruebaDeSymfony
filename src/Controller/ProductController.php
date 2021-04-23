@@ -88,14 +88,13 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/product/delete/{id}", name="product_delete", methods={"DELETE"})
+     * @Route("/product/delete/{id}", name="product_delete")
      */
-    public function delete($id,EntityManagerInterface $em,ProductRepository $repository)
+    public function delete(Product $product,EntityManagerInterface $em,ProductRepository $repository)
     {
-        $query = $repository->find($id);
-        $em->remove($query);
+        $em->remove($product);
         $em->flush();
-        return new Response(null, 204);
+        return $this->redirectToRoute('app_productos');
     }
 
 

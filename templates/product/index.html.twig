@@ -67,10 +67,7 @@
                             <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                         </td>
                         <td>
-                            <a class="btn btn-warning js-delete" data-url="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger js-deleteItem" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ path('product_delete', {'id': product.id}) }}>
+                            <button type="button" class="btn btn-danger js-deleteItem" data-toggle="modal" data-target="#exampleModalCenter" data-url="{{ path('product_delete', {'id': product.id}) }}">
                                 Delete
                             </button>
                         </td>
