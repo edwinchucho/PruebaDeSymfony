@@ -7,6 +7,11 @@
 
 {% block body %}
 <div class="form-signin">
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <br>

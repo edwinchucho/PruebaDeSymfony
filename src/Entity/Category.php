@@ -26,6 +26,9 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="no puede estar en blanco")
+     *  @Assert\Length(
+     *      min = 4,
+     *      minMessage = "debe tener minimo 4 caracteres")
      */
     private $name;
 

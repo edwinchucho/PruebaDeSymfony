@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use App\Validator\UniqueCode;
+use App\Validator\UniqueName;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -24,13 +26,13 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="blanco")
+     * @Assert\NotBlank(message="no puede estar en blanco")
      * @Assert\Length(
      *      min = 4,
      *      max = 10,
      *      minMessage = "debe tener minimo 4 caracteres",
      *      maxMessage = "debe tener maximo 10 caracteres")
-     *
+     * @UniqueCode()
      */
     private $code;
 
@@ -40,6 +42,7 @@ class Product
      *  @Assert\Length(
      *      min = 4,
      *      minMessage = "debe tener minimo 4 caracteres")
+     * @UniqueName()
      */
     private $name;
 

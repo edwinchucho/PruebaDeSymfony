@@ -48,6 +48,8 @@ class ProductController extends AbstractController
             $emi->persist($product);
             $emi->flush();
 
+            $this->addFlash('success','se registro su producto');
+
             return $this->redirectToRoute('product_new');
         }
 
