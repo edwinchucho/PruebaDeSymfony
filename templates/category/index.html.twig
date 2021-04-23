@@ -6,10 +6,10 @@
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 form-signin ">
             <h1>Categorias</h1>
             <!-- conteo de entradas-->
-            <div class="count">
+            <div class="count ">
                         <span class="label label-primary">
                             Entradas en total: {{ categories.getTotalItemCount }}
                         </span>
@@ -19,7 +19,8 @@
             <a class="btn btn-primary" href="{{ path('app_productos') }}">Productos</a>
             <br>
             <br>
-            <a class="btn btn-primary" href="{{ path('product_new') }}">nuevo</a>
+            <a class="btn btn-primary" href="{{ path('category_new') }}">nuevo</a>
+            <br/>
 
             <table class="table table-striped js-table ">
                 <thead>

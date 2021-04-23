@@ -40,7 +40,6 @@ class ProductController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $product = new Product();
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
 
@@ -56,7 +55,6 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/create.html.twig', [
-            'product' => $product,
             'form' => $form->createView(),
         ]);
     }

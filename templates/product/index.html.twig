@@ -7,6 +7,21 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-12">
+
+
+            <h1>Productos</h1>
+            <!-- conteo de entradas-->
+            <div class="count">
+                        <span class="label label-primary">
+                            Entradas en total: {{ products.getTotalItemCount }}
+                        </span>
+            </div>
+            <!-- termina filtrado-->
+
+            <a class="btn btn-primary" href="{{ path('app_category') }}">categorias</a>
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{{ path('product_new') }}">nuevo</a>
             <!-- filtrar -->
             <form>
                 <div class="input-group form-signin">
@@ -24,20 +39,6 @@
                     </div>
                 </div>
             </form>
-            <!-- termina filtrado-->
-            <h1>Productos</h1>
-            <!-- conteo de entradas-->
-            <div class="count">
-                        <span class="label label-primary">
-                            Entradas en total: {{ products.getTotalItemCount }}
-                        </span>
-            </div>
-            <br/>
-
-            <a class="btn btn-primary" href="{{ path('app_category') }}">categorias</a>
-            <br>
-            <br>
-            <a class="btn btn-primary" href="{{ path('product_new') }}">nuevo</a>
 
             <table class="table table-striped js-table ">
                 <thead>

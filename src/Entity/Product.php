@@ -34,8 +34,8 @@ class Product
      *      maxMessage = "debe tener maximo 10 caracteres")
      * @UniqueCode()
      * @Assert\Regex(
-     *     pattern="/\w/",
-     *     match=true,
+     *     pattern="/\W/",
+     *     match=false,
      *     message="no puede contener caracteres especiales")
      */
     private $code;
