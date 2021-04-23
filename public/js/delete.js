@@ -4,6 +4,5 @@ $(document).ready(function() {
 		e.preventDefault();
 		var deleteUrl = $(this).data('url');
 		$('#confirmdelete').attr('href',deleteUrl);
-
 	});
 });

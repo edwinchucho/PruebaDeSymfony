@@ -10,7 +10,11 @@
     {{ form_widget(form) }}
     <br>
     <button class="btn btn-success">{{ button_label|default('guardar') }}</button>
+    <br>
+    <br>
+    <a class="btn btn-primary" href="{{ path('app_productos') }}">Regresar</a>
     {{ form_end(form) }}
+
 </div>
 {% endblock %}
 

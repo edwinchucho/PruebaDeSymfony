@@ -38,16 +38,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/new", name="product_new", methods={"GET","POST"})
      */
-    public function create(Request $request,EntityManagerInterface $emi): Response
+    public function create(Request $request): Response
     {
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $product = $form->getData();
-            $emi->persist($product);
-            $emi->flush();
+            $em->persist($product);
+            $em->flush();
 
             $this->addFlash('success','se registro su producto');
 
@@ -62,22 +63,14 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/edit/{id}", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Product $product,Request $request,ProductRepository $repository): Response
+    public function edit(Product $product,Request $request): Response
     {
-
         $form = $this->createForm(ProductType::class, $product);
-        //$Product = $repository->find($id);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-/*
-            $Product->setCode($form->get('code')->getData());
-            $Product->setName($form->get('name')->getData());
-            $Product->setDescription($form->get('description')->getData());
-            $Product->setBrand($form->get('brand')->getData());
-            $Product->setPrice($form->get('price')->getData());
-*/
+            $em->persist($product);
             $em->flush();
 
             return $this->redirectToRoute('app_productos');
@@ -86,12 +79,12 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/product/delete/{id}", name="product_delete")
      */
-    public function delete(Product $product,EntityManagerInterface $em,ProductRepository $repository)
+    public function delete(Product $product)
     {
+        $em = $this->getDoctrine()->getManager();
         $em->remove($product);
         $em->flush();
         return $this->redirectToRoute('app_productos');

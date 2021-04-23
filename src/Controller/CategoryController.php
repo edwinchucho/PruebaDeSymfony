@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,13 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category", name="app_category")
      */
-    public function read(CategoryRepository $repository): Response
+    public function show(CategoryRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $categories = $repository->findAll();
+        $query = $repository->findAll();
+
+        $categories = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1), 5);
         return $this->render('category/index.html.twig', [
             'categories' => $categories,
         ]);
@@ -27,40 +32,39 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/new", name="category_new")
      */
-    public function create(Request $request,EntityManagerInterface $emi){
+    public function create(Request $request): Response
+    {
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
             $category = $form->getData();
-            $emi->persist($category);
-            $emi->flush();
+            $em->persist($category);
+            $em->flush();
 
             return $this->redirectToRoute('category_new');
 
         }
 
         return $this->render('category/create.html.twig',[
+            'category'=> $category,
             'form' => $form->createView(),
         ]);
     }
     /**
      * @Route("/category/edit/{id}", name="category_edit", methods={"GET","POST"})
      */
-    public function edit($id,Request $request, EntityManagerInterface $emi,CategoryRepository $repository): Response
+    public function edit(Category $category,Request $request): Response
     {
-        $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
-        $Category = $repository->find($id);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $Category->setName($form->get('name')->getData());
-            $Category->setActive($form->get('active')->getData());
-
-            $emi->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
 
             return $this->redirectToRoute('app_category');
         }
